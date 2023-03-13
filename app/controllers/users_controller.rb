@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   before_action :authorize, only: [:show, :update, :destroy], dependent: :destroy  #delete khong can cung dc  #dependent: :destroy  <dùng để huỷ luôn tasks khi users bị huỷ>
   before_action :set_user, only: [:show, :update, :destroy]   #delete khong can cung dc
    
