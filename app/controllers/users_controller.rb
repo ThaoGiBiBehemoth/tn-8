@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  
   before_action :authorize, only: [:show, :update, :destroy], dependent: :destroy  #delete khong can cung dc  #dependent: :destroy  <dùng để huỷ luôn tasks khi users bị huỷ>
   before_action :set_user, only: [:show, :update, :destroy]   #delete khong can cung dc
+  # before_action :set_deadline_item, only: [:create, :update]
    
   # LIST: cái này có thể dùng cho admin về sau, pj này ko cần, để đây thôi =))
   def index
@@ -69,4 +69,11 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+  # def set_deadline_item
+  #   if deadline item > deadline task
+  #     render json { error: "" }, status: 422
+  #   end
+  # end
+
 end
