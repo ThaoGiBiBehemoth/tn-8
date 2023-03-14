@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
   before_action :authorize
-  before_action :set_task, only: [:show, :update, :destroy]
+  before_action :set_task, only: [:show, :update, :destroy, :check_stt]
+  before_action :set_status_task, only: [:update]
+
 
   # LIST TASKS (GET: /tasks)
   def index
     @tasks = @user.Tasks.all
-    # binding.pry
     render json: @tasks
   end
 
@@ -51,4 +52,13 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :deadline, :status)
     end
+
+    #tính năng check stt: nếu muốn "done" task thì bắt buộc các item bên trong phải done đã
+    def set_status_task
+      item = Item.where(Task_id: @task.id, status: ["doing","pending"])
+      if item.count > 0
+        render json: { message: "This task can't done. Because all item not done" }
+      end
+    end
+
 end
