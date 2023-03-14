@@ -2,9 +2,9 @@ class ItemsController < ApplicationController
   before_action :authorize
   before_action :set_item, only: [:show, :update, :destroy]
 
-  # LIST TASKS (GET: /items)
+  # LIST TASKS (GET: /items) - ko can den nhung cu de day =))
   def index
-    @items = @task.Items.all
+    @items = Item.all
     render json: @items
   end
 
@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
 
   # NEW TASK (POST: /items)
   def create
-    @item = Item.new(item_params.merge(Task: @task))
+    @item = Item.new(item_params)
 
     if @item.save
       render json: @item, status: 200, location: @item # location: @item  : ???
@@ -44,10 +44,10 @@ class ItemsController < ApplicationController
 
   private
     def set_item
-      @item = @task.Items.find(params[:id])
+      @item = Item.find(params[:id])
     end
 
     def item_params
-      params.require(:item).permit(:title, :deadline, :status)
+      params.require(:item).permit(:title, :deadline, :status, :descrip, :Task_id)
     end
 end
