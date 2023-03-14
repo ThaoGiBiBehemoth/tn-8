@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_13_105046) do
+ActiveRecord::Schema.define(version: 2023_03_13_143806) do
+
+  create_table "items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.string "descrip"
+    t.string "status", default: "pending"
+    t.date "deadline"
+    t.bigint "Task_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["Task_id"], name: "index_items_on_Task_id"
+  end
 
   create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -30,5 +41,6 @@ ActiveRecord::Schema.define(version: 2023_03_13_105046) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "items", "Tasks"
   add_foreign_key "tasks", "Users"
 end
