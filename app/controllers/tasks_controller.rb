@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   # LIST TASKS (GET: /tasks)
   def index
     @tasks = @user.Tasks.all
+    # binding.pry
     render json: @tasks
   end
 
